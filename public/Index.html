@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@1/index.js"></script>
+</head>
+<body>
+
+    <header>Sala de chat</header>
+    <div id="chat-container">
+        
+    </div>
+    <form id="form-container">
+        <button id="emoji-btn">😎</button>
+        <emoji-picker id="emoji-selector" class="hidden"></emoji-picker>
+        <input type="text" id="message-input" placeholder="Escribe tu mensaje..." autocomplete="off" required>
+        <button type="submit">Enviar</button>
+    </form>
+    <script src="chat.js"></script>
+        
+
+</body>
+</html>
