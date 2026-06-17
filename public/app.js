@@ -44,11 +44,6 @@ window.joinApp = () => {
 window.switchRoom = async (roomName) => {
     currentRoom = roomName;
     document.getElementById('current-room-title').innerText = `Sala: ${currentRoom}`;
-
-    window.showSidebar(false);
-
-    document.querySelector('.chat-container').setAttribute('data-room', currentRoom);
-    document.getElementById('current-room-title').innerText = `Sala: ${currentRoom}`;
     
     // Limpiamos la pantalla dejando el ancla del scroll
     document.getElementById('messages-container').innerHTML = '<div id="scroll-anchor"></div><div id="loading-more">Cargando...</div>';
@@ -286,14 +281,3 @@ window.searchMessages = () => {
     filtered.forEach(data => renderMessage(data, true));
 };
 
-
-window.showSidebar = (show) => {
-    const sidebar = document.querySelector('.sidebar');
-    if (sidebar) {
-        if (show) {
-            sidebar.classList.remove('hidden'); // Muestra las salas
-        } else {
-            sidebar.classList.add('hidden');    // Oculta las salas (muestra el chat)
-        }
-    }
-};
