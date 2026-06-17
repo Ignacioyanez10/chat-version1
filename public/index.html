@@ -2,27 +2,55 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat</title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@1/index.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chat en Tiempo Real</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
-    <header>Sala de chat</header>
-    <div id="chat-container">
-        
+    <div id="login-screen">
+        <h2 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: 900; font-size:2rem;">Bienvenido al Chat</h2>
+        <input type="text" id="username-input" placeholder="Tu nombre de usuario..." style=" padding: 10px; margin-bottom: 10px; border-radius: 2rem; border: 1px solid #ccc;">
+        <button onclick="joinApp()">Entrar a los chats</button>
     </div>
-    <form id="form-container">
-        <!-- <button id="emoji-btn">😎</button> 
-        <emoji-picker id="emoji-selector" class="hidden"></emoji-picker>-->
-        <input type="text" id="message-input" placeholder="Escribe tu mensaje..." autocomplete="off" required>
-        <button type="submit">Enviar</button>
-    </form>
-    <script src="chat.js"></script>
-        
 
+    <div class="sidebar">
+        <h2>Salas de Chat</h2>
+        <button class="room-btn" onclick="switchRoom('General')">General</button>
+        <button class="room-btn" onclick="switchRoom('Deportes')">Deportes</button>
+        <button class="room-btn" onclick="switchRoom('Tecnología')">Tecnología</button>
+    </div>
+
+    <div class="chat-container">
+        <div class="chat-header">
+            <h3 id="current-room-title">Sala: General</h3>
+            <input type="text" id="search-input" placeholder="Buscar en mensajes..." onkeyup="searchMessages()">
+        </div>
+        
+        <div id="messages-container">
+            <div id="scroll-anchor"></div>
+            <div id="loading-more">Cargando mensajes anteriores...</div>
+        </div>
+
+        <div class="input-area">
+            <button class="emoji-btn" onclick="insertEmoji('😀')">😀</button>
+            <button class="emoji-btn" onclick="insertEmoji('👍')">👍</button>
+            <button class="emoji-btn" onclick="insertEmoji('❤️')">❤️</button>
+            <emoji-picker></emoji-picker>
+
+            <label class="file-label" title="Adjuntar archivo">
+                📎 <input type="file" id="file-input" onchange="sendFile()">
+            </label>
+            <input type="text" id="message-input" placeholder="Escribe un mensaje..." onkeypress="if(event.key === 'Enter') sendMessage()">
+            <button onclick="sendMessage()">Enviar</button>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script type="module" src="app.js"></script>
 </body>
 </html>

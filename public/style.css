@@ -1,303 +1,382 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+/* ==========================================================================
+   1. VARIABLES Y CONFIGURACIÓN GENERAL (MODO OSCURO SIMPLIFICADO)
+   ========================================================================== */
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+   /* Reseteo universal para que todo mida exactamente lo que debe medir */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-:root {
-  --bg:           #f5f5f7;
-  --surface:      #ffffff;
-  --surface2:     #f2f2f2;
-  --border:       rgba(0, 0, 0, 0.08);
-  --border-focus: rgba(0, 122, 255, 0.5);
-  --accent:       #007aff;
-  --accent-light: rgba(0, 122, 255, 0.1);
-  --own-bubble:   #007aff;
-  --own-text:     #ffffff;
-  --other-bubble: #e9e9eb;
-  --other-text:   #1d1d1f;
-  --text:         #1d1d1f;
-  --text-secondary: #6e6e73;
-  --text-muted:   #aeaeb2;
-  --system-bg:    rgba(0, 0, 0, 0.04);
-  --system-text:  #6e6e73;
-  --radius:       18px;
-  --radius-sm:    10px;
-  --radius-lg:    22px;
-  --shadow-sm:    0 1px 3px rgba(0, 0, 0, 0.06);
-  --shadow:       0 4px 20px rgba(0, 0, 0, 0.08);
+   
+
+
+
+
+
+body { 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+    margin: 0; 
+    display: flex; 
+    height: 100vh; 
+    width: 100vw;
+    overflow: hidden;
+    background-color: #0f1115; /* Fondo ultra oscuro profundo */
+    color: #e3e6eb; /* Texto general claro pero suave para no cansar la vista */
 }
 
-html, body {
-  height: 100%;
-  overflow: hidden;
+/* Estilo general para botones interactivos */
+button { 
+    padding: 10px 18px; 
+    border: none; 
+    border-radius: 12px; /* Esquinas más sutiles y modernas */
+    background-color: #1f6fed; /* Azul eléctrico minimalista */
+    color: #ffffff; 
+    font-weight: 500;
+    cursor: pointer; 
+    transition: all 0.2s ease;
 }
 
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  display: flex;
-  flex-direction: column;
-  height: 100dvh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+button:hover {
+    background-color: #388bfd; /* Brillo sutil al pasar el mouse */
+    transform: translateY(-1px); /* Efecto leve de flotación */
 }
 
-/* ─── HEADER ─────────────────────────────────── */
-header {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid var(--border);
-  padding: 0 28px;
-  height: 58px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 10;
+
+/* ==========================================================================
+   2. PANTALLA DE INICIO DE SESIÓN (LOGIN - MANTIENE TONO LIMPIO/NEUTRO)
+   ========================================================================== */
+#login-screen { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background-color: #0f1115; /* Integrado al modo oscuro */
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    z-index: 10; 
 }
 
-header::before {
-  content: '';
-  width: 8px;
-  height: 8px;
-  background: #34c759;
-  border-radius: 50%;
-  flex-shrink: 0;
+#login-screen input {
+    background: #161b22;
+    border: 1px solid #30363d;
+    color: white;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    outline: none;
+    text-align: center;
 }
 
-header,
-header span {
-  font-family: 'Inter', -apple-system, sans-serif;
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--text);
+
+/* ==========================================================================
+   3. BARRA LATERAL (SIDEBAR - APARIENCIA DE ACERO OSCURO)
+   ========================================================================== */
+.sidebar { 
+    width: 260px; 
+    background-color: #161920; /* Gris carbón azulado */
+    border-right: 1px solid #21262e; /* Separador sutil e imperceptible */
+    color: #8b949e; 
+    padding: 20px; 
+    display: flex; 
+    flex-direction: column; 
 }
 
-header .subtitle {
-  font-size: 0.75rem;
-  font-weight: 400;
-  color: var(--text-muted);
-  letter-spacing: 0;
-  text-transform: none;
-  margin-left: auto;
+.sidebar h2 { 
+    font-size: 14px; 
+    text-transform: uppercase; /* Estilo profesional */
+    letter-spacing: 1px;
+    color: #f0f6fc;
+    margin-bottom: 20px; 
 }
 
-/* ─── CHAT CONTAINER ─────────────────────────── */
-#chat-container {
-  flex: 1;
-  overflow-y: auto;
-  padding: 28px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  scroll-behavior: smooth;
+/* Lista de salas en formato de píldoras minimalistas */
+.room-btn { 
+    background-color: transparent; 
+    border: none; 
+    color: #8b949e; 
+    padding: 12px 15px; 
+    margin-bottom: 6px; 
+    cursor: pointer; 
+    border-radius: 8px; 
+    font-size: 15px;
+    text-align: left;
+    transition: all 0.2s ease;
 }
 
-#chat-container::-webkit-scrollbar { width: 0px; }
-
-/* ─── MENSAJES ───────────────────────────────── */
-.mensaje {
-  display: flex;
-  flex-direction: column;
-  max-width: 65%;
-  padding: 9px 14px;
-  border-radius: var(--radius-lg);
-  line-height: 1.45;
-  font-size: 0.92rem;
-  font-weight: 400;
-  background: var(--other-bubble);
-  color: var(--other-text);
-  align-self: flex-start;
-  border-bottom-left-radius: 4px;
-  animation: fadeUp 0.2s ease forwards;
-  word-break: break-word;
+.room-btn:hover { 
+    background-color: #21262e; /* Destaca sutilmente al pasar el mouse */
+    color: #1f6fed; /* El texto se ilumina con el tono principal */
 }
 
-.mensaje.propio {
-  align-self: flex-end;
-  background: var(--own-bubble);
-  color: var(--own-text);
-  border-bottom-right-radius: 4px;
-  border-bottom-left-radius: var(--radius-lg);
+
+/* ==========================================================================
+   4. CONTENEDOR PRINCIPAL DEL CHAT
+   ========================================================================== */
+.chat-container { 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+    background-color: #0f1115;
 }
 
-/* Small gap between consecutive messages from same sender */
-.mensaje + .mensaje {
-  margin-top: 2px;
+/* Encabezado limpio y plano */
+.chat-header { 
+    background-color: #161920; 
+    padding: 15px 25px; 
+    border-bottom: 1px solid #21262e; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
+.chat-header h3 {
+    margin: 0;
+    color: #f0f6fc;
+    font-size: 16px;
 }
 
-.autor {
-  font-size: 0.7rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  letter-spacing: 0;
-  margin-bottom: 2px;
-  text-transform: none;
+/* Caja de búsqueda elegante */
+#search-input { 
+    padding: 8px 14px; 
+    border-radius: 8px; 
+    background-color: #0f1115;
+    border: 1px solid #21262e; 
+    color: #ffffff;
+    outline: none;
+    font-size: 14px;
+    transition: border 0.2s;
 }
 
-.mensaje.propio .autor {
-  color: rgba(255, 255, 255, 0.65);
-  text-align: right;
+#search-input:focus {
+    border-color: #1f6fed; /* Se ilumina al escribir */
 }
 
-.hora {
-  font-size: 0.62rem;
-  color: var(--text-muted);
-  margin-top: 4px;
-  align-self: flex-end;
-  font-weight: 400;
+
+/* ==========================================================================
+   5. ÁREA DE MENSAJES (ELEGANCIA EN BLOQUE)
+   ========================================================================== */
+#messages-container { 
+    flex: 1; 
+    padding: 25px; 
+    overflow-y: auto; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 4px; /* Mensajes más juntos y fluidos */
+    background-image: url(img/fondogeneral.webp);
 }
 
-.mensaje.propio .hora {
-  color: rgba(255, 255, 255, 0.55);
+/* Estilo base para mensajes del resto de usuarios */
+.message { 
+    background-color: #161920; /* Globo gris oscuro */
+    color: #e3e6eb;
+    padding: 10px 14px; 
+    border-radius: 12px 12px 12px 2px; /* Esquina inferior recortada */
+    margin-bottom: 4px; 
+    max-width: 55%; 
+    align-self: flex-start; 
+    font-size: 15px;
+    line-height: 1.4;
+    border: 1px solid #21262e;
 }
 
-/* ─── MENSAJE SISTEMA ────────────────────────── */
-.mensaje.sistema {
-  align-self: center;
-  max-width: 100%;
-  background: transparent;
-  border: none;
-  color: var(--system-text);
-  font-size: 0.7rem;
-  font-weight: 400;
-  letter-spacing: 0;
-  text-transform: none;
-  padding: 2px 0;
-  border-radius: 0;
-  animation: fadeUp 0.2s ease forwards;
+.message strong {
+    color: #58a6ff; /* Nombre del usuario en azul claro */
+    font-size: 13px;
+    display: block;
+    margin-bottom: 3px;
 }
 
-/* ─── FORM ───────────────────────────────────── */
-#form-container {
-  display: flex;
-  gap: 8px;
-  padding: 14px 20px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-top: 1px solid var(--border);
-  flex-shrink: 0;
-  align-items: center;
+/* Mensajes enviados por ti (Tono verde oliva oscuro y elegante) */
+.message.mine { 
+    background-color: #001c0f; /* Verde bosque nocturno muy sutil */
+    color: #e6f7ed;
+    border-color: #175e38;
+    border-radius: 12px 12px 2px 12px;
+    align-self: flex-end; 
 }
 
-#message-input {
-  flex: 1;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 99px;
-  padding: 11px 18px;
-  font-family: 'Inter', -apple-system, sans-serif;
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: var(--text);
-  outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+.message.mine strong {
+    color: #ededed; /* Tu propio nombre resalta en verde claro */
 }
 
-#message-input::placeholder {
-  color: var(--text-muted);
+/* Mensaje con imágenes */
+.message img {
+    border-radius: 8px;
+    border: 1px solid #30363d;
+    margin-top: 8px;
+}
+
+/* Alerta de carga superior */
+#loading-more { 
+    text-align: center; 
+    color: #8b949e; 
+    padding: 10px; 
+    font-size: 13px;
+}
+
+
+/* ==========================================================================
+   6. BARRA INFERIOR DE ESCRITURA (ESTILO FLOTANTE MINIMALISTA)
+   ========================================================================== */
+.input-area { 
+    background-color: #161920; 
+    padding: 15px 25px; 
+    display: flex; 
+    gap: 15px; 
+    align-items: center;
+    border-top: 1px solid #21262e;
+}
+
+/* Barra de texto principal */
+#message-input { 
+    flex: 1; 
+    padding: 12px 18px; 
+    border-radius: 10px; 
+    background-color: #0f1115;
+    border: 1px solid #21262e; 
+    color: #ffffff;
+    outline: none;
+    font-size: 15px;
+    transition: all 0.2s;
 }
 
 #message-input:focus {
-  background: var(--surface);
-  border-color: var(--border-focus);
-  box-shadow: 0 0 0 3px var(--accent-light);
+    border-color: #1f6fed;
+    background-color: #12141a; /* Se oscurece ligeramente al escribir */
 }
 
-button[type="submit"] {
-  background: var(--accent);
-  color: #ffffff;
-  border: none;
-  border-radius: 99px;
-  padding: 11px 22px;
-  font-family: 'Inter', -apple-system, sans-serif;
-  font-size: 0.88rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.15s, transform 0.1s, opacity 0.15s;
-  white-space: nowrap;
-  letter-spacing: -0.01em;
-  flex-shrink: 0;
+/* Emojis 😄 y Adjuntos 📎 */
+.emoji-btn, .file-label { 
+    background: none; 
+    font-size: 22px; 
+    padding: 0; 
+    color: #8b949e; /* Gris neutral */
+    cursor: pointer; 
+    transition: color 0.2s, transform 0.2s;
 }
 
-button[type="submit"]:hover {
-  background: #0066d6;
+.emoji-btn:hover, .file-label:hover {
+    color: #58a6ff; /* Se iluminan en azul al pasar el cursor */
+    transform: scale(1.05);
 }
 
-button[type="submit"]:active {
-  transform: scale(0.96);
-  opacity: 0.85;
+input[type="file"] { 
+    display: none; 
 }
 
-/* ─── SWEETALERT overrides ───────────────────── */
-.swal2-popup {
-  background: var(--surface) !important;
-  border: 1px solid var(--border) !important;
-  border-radius: var(--radius-lg) !important;
-  color: var(--text) !important;
-  font-family: 'Inter', -apple-system, sans-serif !important;
-  box-shadow: var(--shadow) !important;
+
+
+/* ==========================================================================
+   8. ADAPTACIÓN PARA CELULARES (RESPONSIVE DESIGN)
+   ========================================================================== */
+
+/* Esto se activa automáticamente solo en pantallas menores a 768 píxeles (Celulares) */
+@media (max-width: 768px) {
+    
+    /* Cambiamos la orientación de la pantalla de horizontal a vertical */
+    body {
+        flex-direction: column;
+        height: 100vh;
+        width: 100vw;
+    }
+
+    /* 1. Rediseño de la barra lateral para que no ocupe toda la izquierda */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 10px 15px;
+        margin: 0;
+        border-right: none;
+        border-bottom: 1px solid #21262e;
+        display: flex;
+        flex-direction: row; /* Las salas se ponen una al lado de la otra si hay espacio */
+        overflow-x: auto;    /* Si tienes muchas salas, puedes arrastrarlas de lado con el dedo */
+        gap: 8px;
+    }
+
+   .sidebar h2 {
+        display: none; /* Ocultamos el título "SALAS" en móvil para ganar mucho espacio vertical */
+    }
+
+    /* Ponemos los botones de las salas uno al lado del otro en horizontal */
+    .sidebar br {
+        display: none;        /* Ocultamos saltos de línea si los hay */
+    }
+
+    /* Contenedor flexible para que las salas hagan fila de izquierda a derecha */
+    .sidebar {
+        display: flex;
+        flex-direction: column; 
+    }
+    
+    /* Si tienes las salas metidas en un div o directo, este ajuste las alinea de lado */
+    .room-btn {
+        margin: 0;
+        padding: 6px 12px;
+        font-size: 13px;
+        white-space: nowrap; /* Evita que el nombre de la sala se parta en dos líneas */
+    }
+
+    /* 2. Ajustes en la zona de Chat */
+    .chat-header {
+        padding: 10px 15px;  /* Reducimos espacios para ganar pantalla */
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .chat-container {
+        flex: 1; /* Absorbe el 100% del espacio sobrante abajo */
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .chat-header h3 {
+        font-size: 14px;     /* Texto un poco más pequeño */
+    }
+
+    #search-input {
+        width: 120px;        /* Achicamos el buscador para que no empuje el título */
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+   #messages-container {
+        padding: 12px;
+        width: 100%;
+    }
+
+    .message {
+        max-width: 85%;      /* ¡Importante! En celular el texto debe expandirse más a lo ancho */
+        font-size: 14px;     /* Tamaño ideal para pantallas pequeñas */
+        padding: 8px 12px;
+    }
+
+    /* 4. Barra inferior donde se escribe (Input Area) */
+    .input-area {
+        padding: 10px 15px;  /* Más compacto */
+        gap: 8px;
+    }
+
+    #message-input {
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+
+    /* Ajustamos el tamaño de los iconos para que se puedan tocar fácil con el dedo */
+    .emoji-btn, .file-label {
+        font-size: 24px;     /* Un toque más grandes para facilitar el tap */
+    }
+
+    button {
+        padding: 10px 15px;  /* Botón de enviar ligeramente más compacto */
+        font-size: 14px;
+    }
 }
 
-.swal2-title {
-  color: var(--text) !important;
-  font-family: 'Inter', -apple-system, sans-serif !important;
-  font-weight: 600 !important;
-  font-size: 1.1rem !important;
-  letter-spacing: -0.02em !important;
-}
-
-.swal2-input {
-  background: var(--surface2) !important;
-  border: 1px solid var(--border) !important;
-  color: var(--text) !important;
-  border-radius: var(--radius-sm) !important;
-  font-family: 'Inter', -apple-system, sans-serif !important;
-  font-size: 0.9rem !important;
-  box-shadow: none !important;
-}
-
-.swal2-input:focus {
-  border-color: var(--border-focus) !important;
-  box-shadow: 0 0 0 3px var(--accent-light) !important;
-}
-
-.swal2-label {
-  color: var(--text-secondary) !important;
-  font-size: 0.82rem !important;
-}
-
-.swal2-confirm {
-  background: var(--accent) !important;
-  border-radius: 99px !important;
-  font-weight: 500 !important;
-  letter-spacing: -0.01em !important;
-  padding: 10px 24px !important;
-  box-shadow: none !important;
-}
-
-.swal2-confirm:hover {
-  background: #0066d6 !important;
-}
-
-/* ─── RESPONSIVE ─────────────────────────────── */
-@media (max-width: 600px) {
-  .mensaje { max-width: 82%; }
-  header { padding: 0 18px; height: 52px; }
-  #chat-container { padding: 20px 14px; }
-  #form-container { padding: 10px 12px; }
-  button[type="submit"] { padding: 11px 18px; }
-}
