@@ -378,5 +378,22 @@ input[type="file"] {
         padding: 10px 15px;  /* Botón de enviar ligeramente más compacto */
         font-size: 14px;
     }
+
+    .input-area {
+        padding: 12px 14px !important;
+        gap: 8px;
+        
+        /* 🚀 EL TRUCO AQUÍ: Empujamos la barra hacia arriba */
+        margin-bottom: 15px !important; 
+        
+        /* Le damos un fondo un poco más flotante y redondeado para que se vea premium */
+        background-color: #161920; 
+        border-radius: 12px;
+        width: calc(100% - 16px); /* Dejamos un pequeño espacio a los lados */
+        margin-left: 8px;
+        margin-right: 8px;
+        border-top: none !important;
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2); /* Sombra sutil hacia arriba */
+    }
 }
 
