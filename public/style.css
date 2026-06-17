@@ -271,112 +271,92 @@ input[type="file"] {
 
 
 
+
 /* ==========================================================================
-   8. ADAPTACIÓN PARA CELULARES (RESPONSIVE DESIGN)
+   8. ADAPTACIÓN PARA CELULARES PROFESIONAL (SISTEMA DE PANTALLAS)
    ========================================================================== */
-
-/* Esto se activa automáticamente solo en pantallas menores a 768 píxeles (Celulares) */
 @media (max-width: 768px) {
-    
-    /* Cambiamos la orientación de la pantalla de horizontal a vertical */
     body {
-        flex-direction: column;
-        height: 100vh;
-        width: 100vw;
+        position: relative;
+        overflow: hidden;
     }
 
-    /* 1. Rediseño de la barra lateral para que no ocupe toda la izquierda */
+    /* Ocultamos el botón "Volver" en computadoras, solo se ve en móvil */
+    #back-to-rooms-btn {
+        display: block;
+        background: transparent;
+        color: #1f6fed;
+        font-size: 18px;
+        padding: 5px 10px;
+        margin-right: 5px;
+    }
+
+    /* 1. La barra lateral ahora ocupa TODA la pantalla en el móvil */
     .sidebar {
-        width: 100%;
-        height: auto;
-        padding: 10px 15px;
-        margin: 0;
-        border-right: none;
-        border-bottom: 1px solid #21262e;
-        display: flex;
-        flex-direction: row; /* Las salas se ponen una al lado de la otra si hay espacio */
-        overflow-x: auto;    /* Si tienes muchas salas, puedes arrastrarlas de lado con el dedo */
-        gap: 8px;
-    }
-
-   .sidebar h2 {
-        display: none; /* Ocultamos el título "SALAS" en móvil para ganar mucho espacio vertical */
-    }
-
-    /* Ponemos los botones de las salas uno al lado del otro en horizontal */
-    .sidebar br {
-        display: none;        /* Ocultamos saltos de línea si los hay */
-    }
-
-    /* Contenedor flexible para que las salas hagan fila de izquierda a derecha */
-    .sidebar {
-        display: flex;
-        flex-direction: column; 
-    }
-    
-    /* Si tienes las salas metidas en un div o directo, este ajuste las alinea de lado */
-    .room-btn {
-        margin: 0;
-        padding: 6px 12px;
-        font-size: 13px;
-        white-space: nowrap; /* Evita que el nombre de la sala se parta en dos líneas */
-    }
-
-    /* 2. Ajustes en la zona de Chat */
-    .chat-header {
-        padding: 10px 15px;  /* Reducimos espacios para ganar pantalla */
-        flex-direction: row;
-        gap: 10px;
-    }
-
-    .chat-container {
-        flex: 1; /* Absorbe el 100% del espacio sobrante abajo */
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
-        margin: 0;
-        padding: 0;
+        z-index: 20; /* Se pone por encima del chat */
+        background-color: #161920;
+        display: flex; /* Visible al inicio */
+        padding: 30px 20px;
     }
 
-    .chat-header h3 {
-        font-size: 14px;     /* Texto un poco más pequeño */
+    /* Hacemos los botones de las salas enormes y cómodos para el dedo */
+    .sidebar h2 {
+        display: block;
+        font-size: 16px;
+        text-align: center;
+        margin-bottom: 25px;
     }
 
-    #search-input {
-        width: 120px;        /* Achicamos el buscador para que no empuje el título */
-        font-size: 12px;
-        padding: 6px 10px;
-    }
-
-   #messages-container {
-        padding: 12px;
+    .room-btn {
         width: 100%;
+        padding: 16px; /* Súper cómodo para presionar */
+        font-size: 16px;
+        margin-bottom: 12px;
+        text-align: center;
+        background-color: #21262e;
+        border-radius: 12px;
+    }
+
+    /* 2. El contenedor del chat también ocupa TODA la pantalla */
+    .chat-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10; /* Se queda abajo esperando a que elijas sala */
+    }
+
+    /* Clases auxiliares para controlar qué pantalla se ve con JavaScript */
+    .sidebar.hidden {
+        display: none !important;
+    }
+
+    /* Ajustes extra para globos de texto cómodos */
+    #messages-container {
+        padding: 15px;
     }
 
     .message {
-        max-width: 85%;      /* ¡Importante! En celular el texto debe expandirse más a lo ancho */
-        font-size: 14px;     /* Tamaño ideal para pantallas pequeñas */
-        padding: 8px 12px;
-    }
-
-    /* 4. Barra inferior donde se escribe (Input Area) */
-    .input-area {
-        padding: 10px 15px;  /* Más compacto */
-        gap: 8px;
-    }
-
-    #message-input {
+        max-width: 85%;
+        font-size: 15px;
         padding: 10px 14px;
-        font-size: 14px;
+        margin-bottom: 6px;
     }
 
-    /* Ajustamos el tamaño de los iconos para que se puedan tocar fácil con el dedo */
-    .emoji-btn, .file-label {
-        font-size: 24px;     /* Un toque más grandes para facilitar el tap */
-    }
-
-    button {
-        padding: 10px 15px;  /* Botón de enviar ligeramente más compacto */
-        font-size: 14px;
+    .input-area {
+        padding: 12px 15px;
     }
 }
 
+/* En computadoras ocultamos el botón de volver ya que todo se ve al mismo tiempo */
+@media (min-width: 769px) {
+    #back-to-rooms-btn {
+        display: none;
+    }
+}
